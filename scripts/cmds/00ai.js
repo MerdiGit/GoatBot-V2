@@ -20,7 +20,7 @@ const fonts = {
 
 const Prefixes = [
   'merdi',
-  'nexus',
+  'nxs',
   'ai',
   'ask',
   'vermeil', 
