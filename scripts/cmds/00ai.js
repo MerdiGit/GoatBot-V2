@@ -47,14 +47,14 @@ module.exports = {
       }
       const prompt = event.body.substring(prefix.length).trim();
       if (!prompt) {
-        await message.reply("🟢 𝘼𝙀-𝙎𝙏𝙃𝙀𝙍 ⚪ 🔹\n\n[ദ്ദി ˉ͈̀꒳ˉ͈́ )✧]....?");
+        await message.reply("♡𝑽𝒆𝒓𝒎𝒆𝒊𝒍💘\n\nSALUT JE M'APPELLE VERMEIL, QUE PUIS JE FAIRE POUR VOUS?");
         return;
       }
       const senderID = event.senderID;
       const senderInfo = await api.getUserInfo([senderID]);
       const senderName = senderInfo[senderID].name;
       const response = await axios.get(`https://sandipbaruwal.onrender.com/gpt?prompt=${encodeURIComponent(prompt)}`);
-      const answer = `🟢 𝘼𝙀-𝙎𝙏𝙃𝙀𝙍 ⚪ :\n──────────── \n${response.data.answer} 🟡`;
+      const answer = `♡𝑽𝒆𝒓𝒎𝒆𝒊𝒍💘 :\n──────────── \n${response.data.answer} 🟡`;
 
       //apply const font to each letter in the answer
       let formattedAnswer = "";
