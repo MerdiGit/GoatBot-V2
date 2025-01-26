@@ -1,71 +1,90 @@
 const axios = require('axios');
 
-const fonts = {
-
-    mathsans: {
-        a: "𝗮", b: "𝗯", c: "𝗰", d: "𝗱", e: "𝗲", f: "𝗳", g: "𝗴", h: "𝗵", i: "𝗶",
-    j: "𝗷", k: "𝗸", l: "𝗹", m: "𝗺", n: "𝗻", o: "𝗼", p: "𝗽", q: "𝗾", r: "𝗿",
-    s: "𝘀", t: "𝘁", u: "𝘂", v: "𝘃", w: "𝘄", x: "𝘅", y: "𝘆", z: "𝘇",
-    A: "𝘼", B: "𝘽", C: "𝘾", D: "𝘿", E: "𝙀", F: "𝙁", G: "𝙂", H: "𝙃", I: "𝙄",
-    J: "𝙅", K: "𝙆", L: "𝙇", M: "𝙈", N: "𝙉", O: "𝙊", P: "𝙋", Q: "𝙌", R: "𝙍",
-    S: "𝙎", T: "𝙏", U: "𝙐", V: "𝙑", W: "𝙒", X: "𝙓", Y: "𝙔", Z: "𝙕",1: "𝟭", 2: "𝟮", 3: "𝟯", 4: "𝟰", 5: "𝟱", 6: "𝟲", 7: "𝟳", 8: "𝟴", 9: "𝟵", 0: "𝟬"
-    }
-};
-const rolePlay = "quand tu réponds à cette question ajoutes des emojis convenables. :\n\n";
-
-const Prefixes = [
-  'merdi',
-  'ai',
-  'nexus',
-  'vermeil',
+let PriyaPrefix = [
+  'ai', 'merdi', 'nexus', 'vermeil', // Add Your Prefix Here
 ];
+
+const axiosInstance = axios.create();
 
 module.exports = {
   config: {
-    name: "ai",
-    version: 1.0,
-    author: "Aesther",
-    longDescription: "AI",
-    category: "ai",
-    guide: {
-      en: "{p} questions",
-    },
+    name: 'ask',
+    version: '2.2.0',
+    role: 0,
+    category: 'system',
+    author: 'ミ★𝐒𝐎𝐍𝐈𝐂✄𝐄𝐗𝐄 3.0★彡', // this cmd will expire If you change this credits
+    shortDescription: 'Artificial Intelligence',
+    longDescription: 'Ask Anything To Ai For Your Answers',
   },
+
   onStart: async function () {},
-  onChat: async function ({ api, event, args, message }) {
+
+  onChat: async function ({ message, event, args, api, threadID, messageID }) {
+    const command = args[0].toLowerCase();
+
+    // Help Command
+    if (command === 'help') {
+      const helpMessage = `
+      🌟 *AI Commands* 🌟
+      - Prefixes: ${PriyaPrefix.join(', ')}
+      - Add Prefix: addprefix <prefix>
+      - AI Query: ${PriyaPrefix[0]} <your query>
+      - Say Hi: hi
+      `;
+      await message.reply(helpMessage);
+      return;
+    }
+
+    // Add New Prefix Command
+    if (command === 'addprefix') {
+      const newPrefix = args[1];
+      if (newPrefix && !PriyaPrefix.includes(newPrefix)) {
+        PriyaPrefix.push(newPrefix);
+        await message.reply(`New prefix "${newPrefix}" added successfully!`);
+      } else {
+        await message.reply('Please provide a valid and unique prefix.');
+      }
+      return;
+    }
+
+    // Check for prefixes in the message
+    const ahprefix = PriyaPrefix.find((p) => event.body && event.body.toLowerCase().startsWith(p));
+    if (!ahprefix) {
+      return;
+    }
+
+    const priya = event.body.substring(ahprefix.length).trim();
+    if (!priya) {
+      await message.reply('\n╔╦══• •✠•❀•✠ • •══╦╗\n 😘𝙷𝚎𝚢, 𝚟𝚎𝚛𝚖𝚎𝚒𝚕 𝚊̀ 𝚟𝚘𝚝𝚛𝚎 𝚜𝚎𝚛𝚟𝚒𝚌𝚎 𝚎𝚗 𝚚𝚞𝚘𝚒 𝚙𝚞𝚒𝚜 𝚓𝚎 𝚟𝚘𝚞𝚜 𝚊𝚒𝚍𝚎𝚣🌹\n╚╩══• •✠•❀•✠ • •══╩╝');
+      return;
+    }
+
+    const apply = [
+      '𝚎𝚗𝚝𝚎𝚛 (𝚚)*',
+      '𝙷𝚘𝚠 𝙲𝚊𝚗 𝙸 𝙷𝚎𝚕𝚙 𝚈𝚘𝚞?',
+      '𝚀𝚞𝚊𝚛𝚢 𝙿𝚕𝚎𝚊𝚜𝚎....',
+      '𝙷𝚘𝚠 𝙲𝚊𝚗 𝙸 𝙰𝚜𝚜𝚒𝚜𝚝 𝚈𝚘𝚞?',
+      '𝙶𝚛𝚎𝚎𝚝𝚒𝚗𝚐𝚜!',
+      '𝙸𝚜 𝚃𝚑𝚎𝚛𝚎 𝚊𝚗𝚢𝚝𝚑𝚒𝚗𝚐 𝙴𝚕𝚜𝚎 𝙸 𝙲𝚊𝚗 𝙳𝚘?'
+    ];
+    const randomapply = apply[Math.floor(Math.random() * apply.length)];
+
+    if (command === 'hi') {
+      await message.reply(randomapply);
+      return;
+    }
+
+    const encodedPrompt = encodeURIComponent(args.join(' '));
+
+    await message.reply('⏰| 𝗣𝗹𝗲𝗮𝘀𝗲 𝘄𝗮𝗶𝘁...');
+
     try {
-
-      const prefix = Prefixes.find((p) => event.body && event.body.toLowerCase().startsWith(p));
-      if (!prefix) {
-        return; // Invalid prefix, ignore the command
-      }
-      const prompt = event.body.substring(prefix.length).trim();
-      if (!prompt) {
-      const prompt = event.body.substring(prefix.length).trim();
-api.setMessageReaction("💬", event.messageID, () => {}, true);
-      if (!prompt) {
-        await message.reply("𝙔𝙤 𝙢𝙚𝙘 𝙦𝙪𝙚 𝙥𝙪𝙞-𝙟𝙚 𝙛𝙖𝙞𝙧𝙚 𝙥𝙤𝙪𝙧 𝙩𝙤𝙞 ?");
-        return;
-      }
-        return;
-      }
-      const senderID = event.senderID;
-      const senderInfo = await api.getUserInfo([senderID]);
-      const senderName = senderInfo[senderID].name;
-      const response = await axios.get(https://sandipbaruwal.onrender.com/gemini?prompt=${encodeURIComponent(rolePlay + prompt)});
-      const a💬 𝘾𝙃𝘼𝙏 𝙂𝙋𝙏\n▬▬▬▬▬▬▬▬▬▬▬▬▬\n${response.data.answer} \n▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬`;
-api.setMessageReaction("✅", event.messageID, () => {}, true);
-
-      //apply const font to each letter in the answer
-      let formattedAnswer = "";
-      for (let letter of answer) {
-        formattedAnswer += letter in fonts.mathsans ? fonts.mathsans[letter] : letter;
-      }
-
-      await message.reply(formattedAnswer);
-
+      const response = await axiosInstance.get(`https://priyansh-ai.onrender.com/gemini/ai?query=${encodedPrompt}`);
+      const Priya = response.data;
+      const priyares = `\n━━━━━━━━━━━━━━━━\n🌹| ${Priya}😘💘\n━━━━━━━━━━━━━━━━`;
+      await message.reply(priyares);
     } catch (error) {
-      console.error("Error:", error.message);
+      await message.reply('𝙴𝚛𝚛𝚘𝚛...');
     }
   }
 };
