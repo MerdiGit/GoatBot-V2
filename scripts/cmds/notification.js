@@ -4,11 +4,15 @@ module.exports = {
 	config: {
 		name: "notification",
 		aliases: ["notify", "noti"],
-		version: "1.7",
+		version: "1.6",
 		author: "NTKhang",
 		countDown: 5,
 		role: 2,
-		description: {
+		shortDescription: {
+			vi: "Gửi thông báo từ admin đến all box",
+			en: "Send notification from admin to all box"
+		},
+		longDescription: {
 			vi: "Gửi thông báo từ admin đến all box",
 			en: "Send notification from admin to all box"
 		},
@@ -30,11 +34,11 @@ module.exports = {
 			errorSendingNotification: "Có lỗi xảy ra khi gửi đến %1 nhóm:\n%2"
 		},
 		en: {
-			missingMessage: "Please enter the message you want to send to all groups",
-			notification: "Notification from admin bot to all chat groups (do not reply to this message)",
-			sendingNotification: "Start sending notification from admin bot to %1 chat groups",
-			sentNotification: "✅ Sent notification to %1 groups successfully",
-			errorSendingNotification: "An error occurred while sending to %1 groups:\n%2"
+			missingMessage: "📥 Maitre veillez saisir le messages qui sera distribuée à tout les groupes📨",
+			notification: "                          𝖀𝖓 𝖈𝖔𝖚𝖗𝖗𝖎𝖊𝖗 𝖊́𝖑𝖊𝖈𝖙𝖗𝖔𝖓𝖎𝖖𝖚𝖊 𝖆 𝖊́𝖙𝖊́ 𝖊𝖓𝖛𝖔𝖞𝖊́ 𝖕𝖆𝖗 𝖑'𝖆𝖉𝖒𝖎𝖓 𝖉𝖚 𝖇𝖔𝖙 📬 (𝕽𝖊́𝖕𝖔𝖓𝖉𝖊𝖟 𝖆̀ 𝖑'𝖆𝖉𝖒𝖎𝖓 📨 𝖊𝖓 𝖚𝖙𝖎𝖑𝖎𝖘𝖆𝖓𝖙  𝖑𝖆 𝖈𝖒𝖉 @𝖈𝖆𝖑𝖑𝖆𝖉)     ══════ ⋆★⋆══════",
+			sendingNotification: "✅📬 Sending en cours... ",
+			sentNotification: "✅ Goodness le message a était envoyé avec succès 🚀",
+			errorSendingNotification: "🚨 Alert🚨, un problèmes as était localiser dans ces groupes :  %1 groupes:\n%2"
 		}
 	},
 
@@ -43,7 +47,7 @@ module.exports = {
 		if (!args[0])
 			return message.reply(getLang("missingMessage"));
 		const formSend = {
-			body: `${getLang("notification")}\n────────────────\n${args.join(" ")}`,
+			body: `${getLang("notification")}\n\n${args.join(" ")}`,
 			attachment: await getStreamsFromAttachment(
 				[
 					...event.attachments,
