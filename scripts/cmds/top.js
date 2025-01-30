@@ -1,4 +1,3 @@
-Merdi Madimba
 module.exports = {
   config: {
     name: "top",
