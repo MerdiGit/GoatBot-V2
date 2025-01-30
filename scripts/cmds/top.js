@@ -1,3 +1,4 @@
+Merdi Madimba
 module.exports = {
   config: {
     name: "top",
@@ -24,7 +25,7 @@ module.exports = {
 
     // Si aucune donnée n'est trouvée
     if (topUsers.length === 0) {
-      return api.sendMessage("❌ Aucune donnée trouvée pour les utilisateurs. ", event.threadID, event.messageID);
+      return api.sendMessage("❌ Aucune donnée trouvée pour les utilisateurs. 🌚", event.threadID, event.messageID);
     }
 
     // Gestion de la pagination (2 pages, 5 utilisateurs par page)
@@ -48,11 +49,11 @@ module.exports = {
 
     // Ajout d'un message spécial pour le premier utilisateur
     const firstUser = topUsers[0];
-    const congratulations =💰Celui avec le plus d'argent est ${firstUser.name}  avec ${firstUser.money || 0}$ 🪙`;
+    const congratulations =🏆 Celui avec le plus d'argent est ${firstUser.name} avec ${firstUser.money || 0}$ 🪙`;
 
     // Message avec pagination
     const paginationMessage =📜 Page ${page} sur ${totalPages}\n`;
-    const messageTex🔖 𝗧𝗢𝗣 10 𝗥𝗜𝗖𝗛𝗘𝗦𝗧🔖\n\n${topUsersList.join('\n')}\n\n${paginationMessage}${congratulations}ns}`;
+    const messageTex🔖𝗧𝗢𝗣 10 𝗥𝗜𝗖𝗛𝗘𝗦𝗧🔖\n\n${topUsersList.join('\n')}\n\n${paginationMessage}${congratulations}ns}`;
     return api.sendMessage(messageText, event.threadID, event.messageID);
   }
 };
