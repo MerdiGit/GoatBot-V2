@@ -1,4 +1,4 @@
-module.exports = {
+ module.exports = {
   config: {
     name: "top",
     version: "1.3",
@@ -37,22 +37,22 @@ module.exports = {
 
     // Si la page demandée est invalide
     if (page < 1 || page > totalPages) {
-      return api.sendMessage(❌ Page invalide. Il y a ${totalPages} pages disponibles. 📜, event.threadID, event.messageID);
+      return api.sendMessage(`❌ Page invalide. Il y a ${totalPages} pages disponibles. 📜`, event.threadID, event.messageID);
     }
 
     // Création de la liste des utilisateurs les plus riches
     const topUsersList = usersOnPage.map((user, index) => {
       const userMoney = user.money || 0;
-      return🎖️ ${startIndex + index + 1}. ${user.name} : ${userMoney} ${getRandomEmoji()}`;
+      return `🎖️ ${startIndex + index + 1}. ${user.name} : ${userMoney} ${getRandomEmoji()}`;
     });
 
     // Ajout d'un message spécial pour le premier utilisateur
     const firstUser = topUsers[0];
-    const congratulations =🏆 Celui avec le plus d'argent est ${firstUser.name} avec ${firstUser.money || 0}$ 🪙`;
+    const congratulations = `🏆 Celui avec le plus d'argent est ${firstUser.name} avec ${firstUser.money || 0}$ 🪙`;
 
     // Message avec pagination
-    const paginationMessage =📜 Page ${page} sur ${totalPages}\n`;
-    const messageTex🔖𝗧𝗢𝗣 10 𝗥𝗜𝗖𝗛𝗘𝗦𝗧🔖\n\n${topUsersList.join('\n')}\n\n${paginationMessage}${congratulations}ns}`;
+    const paginationMessage = `📜 Page ${page} sur ${totalPages}\n`;
+    const messageText = `🔖𝗧𝗢𝗣 10 𝗥𝗜𝗖𝗛𝗘𝗦𝗧🔖\n\n${topUsersList.join('\n')}\n\n${paginationMessage}${congratulations}`;
     return api.sendMessage(messageText, event.threadID, event.messageID);
   }
 };
