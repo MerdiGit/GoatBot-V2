@@ -49,11 +49,11 @@ module.exports = {
       const winAmount = 1 * betAmount;
       userData.money += winAmount;
       await usersData.set(event.senderID, userData);
-      return message.reply((\\_/)\n( •_•)\n// >[ ${resultString} ]\n\n🎉 | Congratulations! You won ${winAmount}!);
+      return message.reply(`(\\_/)\n( •_•)\n// >[ ${resultString} ]\n\n🎉 | Congratulations! You won ${winAmount}!`);
     } else {
       userData.money -= betAmount;
       await usersData.set(event.senderID, userData);
-      return message.reply((\\_/)\n( •_•)\n// >[ ${resultString} ]\n\n😿 | You lost ${betAmount}.);
+      return message.reply(`(\\_/)\n( •_•)\n// >[ ${resultString} ]\n\n😿 | You lost ${betAmount}.`);
     }
   }
 };
