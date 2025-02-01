@@ -15,6 +15,6 @@ onChat: async function({
     message,
     getLang
 }) {
-    if (event.body && event.body.toLowerCase() == "🇨🇩") return message.reply("🇨🇩 Ne vous en faites pas , on vaicrle M23");
+    if (event.body && event.body.toLowerCase() == "🇨🇩") return message.reply("🇨🇩 Ne vous en faites pas , on vaicra le M23✊");
 }
 };
