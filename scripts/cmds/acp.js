@@ -1,4 +1,4 @@
-const moment = require("moment-timezone");
+ const moment = require("moment-timezone");
 
 module.exports = {
   config: {
@@ -63,7 +63,7 @@ module.exports = {
     for (const stt of targetIDs) {
       const u = listRequest[parseInt(stt) - 1];
       if (!u) {
-        failed.push(Can't find stt ${stt} in the list);
+        failed.push(`Can't find stt ${stt} in the list`);
         continue;
       }
       form.variables.input.friend_requester_id = u.node.id;
@@ -90,7 +90,7 @@ module.exports = {
     }
 
     if (success.length > 0) {
-      api.sendMessage(» The ${args[0] === 'add' ? 'friend request' : 'friend request deletion'} has been processed for ${success.length} people:\n\n${success.join("\n")}${failed.length > 0 ? `\n» The following ${failed.length} people encountered errors: ${failed.join("\n")} : ""}`, event.threadID, event.messageID);
+      api.sendMessage(`» The ${args[0] === 'add' ? 'friend request' : 'friend request deletion'} has been processed for ${success.length} people:\n\n${success.join("\n")}${failed.length > 0 ? `\n» The following ${failed.length} people encountered errors: ${failed.join("\n")}` : ""}`, event.threadID, event.messageID);
     } else {
       api.unsendMessage(messageID); // Unsend the message if the response is incorrect
       return api.sendMessage("Invalid response. Please provide a valid response.", event.threadID);
@@ -112,12 +112,12 @@ module.exports = {
     let i = 0;
     for (const user of listRequest) {
       i++;
-      msg += (\n${i}. Name: ${user.node.name}
-        + \nID: ${user.node.id}
-        + \nUrl: ${user.node.url.replace("www.facebook", "fb")}
-        + \nTime: ${moment(user.time * 1009).tz("Asia/Manila").format("DD/MM/YYYY HH:mm:ss")}\n);
+      msg += (`\n${i}. Name: ${user.node.name}`
+        + `\nID: ${user.node.id}`
+        + `\nUrl: ${user.node.url.replace("www.facebook", "fb")}`
+        + `\nTime: ${moment(user.time * 1009).tz("Asia/Manila").format("DD/MM/YYYY HH:mm:ss")}\n`);
     }
-    api.sendMessage(${msg}\nReply to this message with content: <add | del> <comparison | or "all"> to take action, event.threadID, (e, info) => {
+    api.sendMessage(`${msg}\nReply to this message with content: <add | del> <comparison | or "all"> to take action`, event.threadID, (e, info) => {
       global.GoatBot.onReply.set(info.messageID, {
         commandName,
         messageID: info.messageID,
